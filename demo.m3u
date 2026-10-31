@@ -1,0 +1,7 @@
+#EXTM3U
+#EXTINF:-1 group-title="Demo",Apple BipBop (test stream)
+https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8
+#EXTINF:-1 group-title="Demo",Big Buck Bunny (CC BY, Blender Foundation)
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+#EXTINF:-1 group-title="Demo",Tears of Steel (CC BY, Blender Foundation)
+https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8
