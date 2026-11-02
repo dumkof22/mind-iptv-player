@@ -11,6 +11,8 @@
   });
 
   // Pass ad/campaign UTM parameters through to the Play Store install referrer.
+  // Buttons that serve both stores (data-ios / data-other) open the App Store on iPhone and iPad
+  // and the download section on devices that are neither Android nor iOS.
   try {
     var params = new URLSearchParams(location.search);
     var ref = {utm_source: 'website', utm_medium: 'landing', utm_campaign: doc.lang};
@@ -19,8 +21,14 @@
       if (v) ref[k] = v;
     });
     var referrer = Object.keys(ref).map(function (k) { return k + '=' + encodeURIComponent(ref[k]); }).join('&');
+    var ua = navigator.userAgent;
+    var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var android = /Android/i.test(ua);
     document.querySelectorAll('a[data-play]').forEach(function (a) {
-      a.href = a.getAttribute('data-play') + '&referrer=' + encodeURIComponent(referrer);
+      var href = a.getAttribute('data-play') + '&referrer=' + encodeURIComponent(referrer);
+      if (ios && a.hasAttribute('data-ios')) href = a.getAttribute('data-ios');
+      else if (!ios && !android && a.hasAttribute('data-other')) href = a.getAttribute('data-other');
+      a.href = href;
     });
   } catch (e) { /* keep the static links */ }
 
